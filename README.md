@@ -4,6 +4,7 @@ manga downloader automatically from a predefined source
 Here i have used the solo leveling as an example.
 
 The source URL is: https://ww1.mangafreak.me/Manga/Solo_Leveling
+
 user need add the main URL with the manga reading list like this: https://ww1.mangafreak.me/Manga/Solo_Leveling
 
 After that the script will ask the start chapter number and end chapter number to download.
