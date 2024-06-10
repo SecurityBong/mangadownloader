@@ -11,6 +11,6 @@ After that the script will ask the start chapter number and end chapter number t
 
 Automatically all mentioned files will be downloaded. Just unzip and enjoy.
 
-**Usage:** ./mangadownloader.sh https://ww1.mangafreak.me/Manga/Solo_Leveling
+**Usage:** bash mangadownloader.sh
 
 Note: Please do not use this to spam the site or give heavy load on the source URL server as we dont have the reliable source. If anything happens me or github will not be responsible. You are on your own.
