@@ -8,29 +8,37 @@ download_chapter() {
     local output_dir="$manga_name/Chapter_$chapter_number"
 
     mkdir -p "$output_dir"
+    mkdir -p "tmp"
 
     local image_number=1
-    local retry=0
     while : ; do
-        image_url="${base_url}/${manga_name}_${chapter_number}_${image_number}.jpg"
-        output_file="${output_dir}/${manga_name}_${chapter_number}_${image_number}.jpg"
+        local retry=0
+        while [[ $retry -lt 3 ]]; do  # Retry downloading the image up to 3 times
+            image_url="${base_url}/${manga_name}_${chapter_number}_${image_number}.jpg"
+            tmp_file="tmp/${manga_name}_${chapter_number}_${image_number}.jpg"
+            output_file="${output_dir}/${manga_name}_${chapter_number}_${image_number}.jpg"
 
-        # Download the image
-        wget -q "$image_url" -O "$output_file"
-        
-        # Check if the download was successful
-        if [[ $? -eq 0 && -s $output_file ]]; then
-            image_number=$((image_number + 1))
-            retry=0  # Reset retry counter
-        else
-            ((retry++))
-            echo "Retry $retry: Failed to download $image_url"
-            # If all retries failed, break the loop
-            if [[ $retry -eq 3 ]]; then
-                echo "Error: Failed to download $image_url after multiple attempts. Moving to the next process."
-                break
+            # Download the image
+            wget -q "$image_url" -O "$tmp_file"
+            
+            # Check if the download was successful
+            if [[ $? -eq 0 && -s $tmp_file ]]; then
+                mv "$tmp_file" "$output_file"
+                break  # Break the retry loop if the image is downloaded successfully
+            else
+                ((retry++))
+                echo "Retry $retry: Failed to download $image_url"
             fi
+        done
+
+        # If all retries failed, break the loop and move to the next process
+        if [[ $retry -eq 3 ]]; then
+            echo "Error: Failed to download $image_url after multiple attempts. Moving to the next process."
+            rm -f "$tmp_file"
+            break
         fi
+
+        image_number=$((image_number + 1))
     done
 }
 
@@ -78,5 +86,6 @@ zip -r "$zip_filename" "$manga_name"
 
 echo "Download and compression complete. The file is saved as $zip_filename."
 
-# Cleanup the downloaded files
+# Cleanup the downloaded files and temporary directory
 rm -rf "$manga_name"
+rm -rf "tmp"
