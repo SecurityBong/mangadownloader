@@ -1,5 +1,5 @@
 # mangadownloader
-manga downloader automatically from a predefined source
+manga downloader automatically from a predefined source. Use the python file.
 
 The source URL is: https://ww1.mangafreak.me
 
