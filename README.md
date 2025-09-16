@@ -9,8 +9,8 @@ User need add the main URL with the manga reading list like this: https://ww1.ma
 
 After that the script will ask the start chapter number and end chapter number to download.
 
-Automatically all mentioned files will be downloaded. Just unzip and enjoy.
+Automatically all mentioned files will be downloaded.
 
-**Usage:** bash mangadownloader.sh
+**Usage:** python mangadownloader.py
 
 Note: Please do not use this to spam the site or give heavy load on the source URL server as we dont have the reliable source. If anything happens me or github will not be responsible. You are on your own.
